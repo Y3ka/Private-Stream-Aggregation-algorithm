@@ -1,4 +1,4 @@
-#Implementation for of the Private Stream Aggregation algorithm proposed by Elaine Shi
+#Implementation for the Private Stream Aggregation algorithm proposed by Elaine Shi
 #Based on www.elaineshi.com/docs/ndss2011.pdf
 #TODO implement Pollard's method
 
@@ -189,7 +189,7 @@ print(f"\noriginal data of {nb_user} users : {x}")
 eps = 20
 d = 0.01
 
-#p roportion of uncompromised participants
+#proportion of uncompromised participants
 gamma = 0.9
 
 x_noisy = DD_Privacy(eps, gamma, d, delta, x)
@@ -224,7 +224,7 @@ for i in range(0,nb_user):
     x_enc.append(NoisyEnc(p, g, sk[i+1], ht, x[i]))
     x_enc_noisy.append(NoisyEnc(p, g, sk[i+1], ht, x_noisy[i]))
 print(f"encrypted data received by the aggregator : {x_enc}")
-print(f"encrypted data received by the aggregator (with noise) : {x_enc}\n")
+print(f"encrypted data received by the aggregator (with noise) : {x_enc_noisy}\n")
 result = decrypt(p, g, sk[0], ht, x_enc)
 result_noisy = decrypt(p, g, sk[0], ht, x_enc_noisy)
 print(f"decrypted sum by the aggregator : {result}")
