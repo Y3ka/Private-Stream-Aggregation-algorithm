@@ -1,4 +1,5 @@
 #Implementation for of the Private Stream Aggregation algorithm proposed by Elaine Shi
+#Based on www.elaineshi.com/docs/ndss2011.pdf
 #TODO implement Pollard's method
 
 from math import exp, log
