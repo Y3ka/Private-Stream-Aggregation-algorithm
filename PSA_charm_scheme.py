@@ -87,11 +87,6 @@ class User():
     def encrypt(self):
         """
             Compute user's ciphertext for time step t (NoisyEnc(param,ski,t,x))
-            input :
-            g : public param - prime order, generator
-            sk : user's secret key
-            ht : hash value for time t
-            x : value to encrypt
             return :
             c : user's ciphertext for time t
         """
@@ -104,8 +99,6 @@ class User():
         """
             Implement the DD-Private Data Randomization Procedure
             Generating and adding the noise necessary for achieving distributed differential privacy
-            return :
-            x_noise : user's data with noise
         """
         bernoulli_dist = st.bernoulli(self.beta) #Bernouilli's law with parameter beta
         if bernoulli_dist.rvs():
