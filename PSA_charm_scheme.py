@@ -6,18 +6,6 @@ from datetime import datetime
 import hashlib, secrets
 import scipy.stats as st
 
-# G = IntegerGroup()
-# G.paramgen(8)
-# p = G.random()
-# g = G.randomGen()
-# t = 5
-# order = G.groupOrder()
-
-# print(f"{p}.{H(t)} = {p*H(t)}")
-
-# print(order)
-
-
 
 def H(t):
     """
