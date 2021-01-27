@@ -112,12 +112,10 @@ class User():
         """
             Implement the DD-Private Data Randomization Procedure
             Generating and adding the noise necessary for achieving distributed differential privacy
-            return :
-            x_noise : user's data with noise
         """
         bernoulli_dist = st.bernoulli(self.beta) #Bernouilli's law with parameter beta
         if bernoulli_dist.rvs():
-            dist = Geometric(a=-10000, b= 10000, name="Geometric")
+            dist = Geometric(a=-self.x, b= delta-self.x, name="Geometric")
             r = dist.rvs(l=self.alpha)
         else:
             r = 0
@@ -127,8 +125,9 @@ class User():
         """
             Each user add independant geometric noise to their data
         """
-        dist = Geometric(a=-10000, b=10000, name="Geometric")
+        dist = Geometric(a=-self.x, b=delta-self.x, name="Geometric")
         r = dist.rvs(l=self.alpha)
+        
         self.x = (self.x + r)%p
 
 def keygen(n, p):
@@ -230,87 +229,87 @@ gamma = 1
 
 #Uncomment this section for one run at time t with the defined paramaters
 
-#number of users
-nb_users = 10000
-print(f"Number of users: {nb_users}")
+# #number of users
+# nb_users = 10000
+# print(f"Number of users: {nb_users}")
 
-#secret keys
-sk = keygen(nb_users,p)
-sum = 0
-for i in sk:
-    sum = (sum+i)%p
-
-
-# print(f"secret keys : {sk}")
-print(f"sum of the secret keys : {sum}\n")
+# #secret keys
+# sk = keygen(nb_users,p)
+# sum = 0
+# for i in sk:
+#     sum = (sum+i)%p
 
 
-#Creation of users
-users = []
-for i in range(1, nb_users+1):
-    user = User(secrets.choice(data_group), sk[i])
-    users.append(user)
+# # print(f"secret keys : {sk}")
+# print(f"sum of the secret keys : {sum}\n")
 
-data_list = []
-expected_result = 0
-expected_result_with_noise = 0
-ciphertexts = []
-ciphertexts_noisy = []
 
-#Users add noise to their data
-for user in users:
-    # data_list.append(user.x)
-    expected_result = (expected_result + user.x)%p
-    ciphertexts.append(user.encrypt())
-    user.DD_Privacy()
-    expected_result_with_noise = (expected_result_with_noise + user.x)%p
-    ciphertexts_noisy.append(user.encrypt())
+# #Creation of users
+# users = []
+# for i in range(1, nb_users+1):
+#     user = User(secrets.choice(data_group), sk[i])
+#     users.append(user)
 
-#Aggregator
-agg = Aggregator(ciphertexts, sk[0])
-agg_noisy = Aggregator(ciphertexts_noisy, sk[0])
-decrypt = agg.decrypt()
-decrypt_noisy = agg_noisy.decrypt()
-error = abs(int(decrypt) - int(decrypt_noisy))
-# print(f"list of all users'data (before encryption) : {data_list}")
-# print(f"list of all ciphertexts (given to the aggregator) : {ciphertexts}\n")
-print(f"expected sum : {expected_result}")
-print(f"expected sum (with noise): {expected_result_with_noise}")
-print(f"decrypted sum by the aggregator : {decrypt}")
-print(f"decrypted sum by the aggregator with noise : {decrypt_noisy}")
-print(f"Error range : {error}")
+# data_list = []
+# expected_result = 0
+# expected_result_with_noise = 0
+# ciphertexts = []
+# ciphertexts_noisy = []
+
+# #Users add noise to their data
+# for user in users:
+#     # data_list.append(user.x)
+#     expected_result = (expected_result + user.x)%p
+#     ciphertexts.append(user.encrypt())
+#     user.DD_Privacy()
+#     expected_result_with_noise = (expected_result_with_noise + user.x)%p
+#     ciphertexts_noisy.append(user.encrypt())
+
+# #Aggregator
+# agg = Aggregator(ciphertexts, sk[0])
+# agg_noisy = Aggregator(ciphertexts_noisy, sk[0])
+# decrypt = agg.decrypt()
+# decrypt_noisy = agg_noisy.decrypt()
+# error = abs(int(decrypt) - int(decrypt_noisy))
+# # print(f"list of all users'data (before encryption) : {data_list}")
+# # print(f"list of all ciphertexts (given to the aggregator) : {ciphertexts}\n")
+# print(f"expected sum : {expected_result}")
+# print(f"expected sum (with noise): {expected_result_with_noise}")
+# print(f"decrypted sum by the aggregator : {decrypt}")
+# print(f"decrypted sum by the aggregator with noise : {decrypt_noisy}")
+# print(f"Error range : {error}")
 #############################################
 # DD privacy
 #############################################
 
 #Uncomment this section for simulation result, comparing the distributed differential privacy scheme against a naive scheme where geometric noise is added to all data participants independantly
 
-# x = [10**i for i in range(1,4)]
-# print(x)
-# y = [] #average error for x participants for our DD privacy scheme
-# y2= [] #average error for x participants for the naive scheme
-# result = []
-# nb_samples = 100 # mean calculated over nb_samples runs
-# for k in x:
-#     nb_users = k
-#     for j in range(0, nb_samples):
-#         sk = keygen(nb_users,p)
-#         mean = 0
-#         mean2 = 0
-#         result = error(nb_users, sk, data_group)
-#         mean += result[0]/nb_samples
-#         mean2 += result[1]/nb_samples
-#     y2.append(mean2)
-#     y.append(mean)
+x = [10**i for i in range(1,5)]
+print(x)
+y = [] #average error for x participants for our DD privacy scheme
+y2= [] #average error for x participants for the naive scheme
+result = []
+nb_samples = 100 # mean calculated over nb_samples runs
+for k in x:
+    nb_users = k
+    mean = 0
+    mean2 = 0
+    for j in range(0, nb_samples):
+        sk = keygen(nb_users,p)
+        result = error(nb_users, sk, data_group)
+        mean += result[0]/nb_samples
+        mean2 += result[1]/nb_samples
+    y2.append(mean2)
+    y.append(mean)
 
-# print(f"x = {x}")
-# print(f"average error for our DD privacy scheme = {y}")
-# print(f"average error for naive schme = {y2}")
+print(f"x = {x}")
+print(f"average error for our DD privacy scheme = {y}")
+print(f"average error for naive scheme = {y2}")
 
-# fig, ax = plt.subplots()
-# ax.plot(x, y, linestyle='-', marker='o', color='b', label="Our scheme")
-# ax.plot(x, y2, linestyle='--', marker='o', color='r', label="Naive scheme")
-# ax.set_xlabel("Number of users")
-# ax.set_ylabel("Error")
-# ax.legend()
-# plt.show()
+fig, ax = plt.subplots()
+ax.plot(x, y, linestyle='-', marker='o', color='b', label="Our scheme")
+ax.plot(x, y2, linestyle='--', marker='o', color='r', label="Naive scheme")
+ax.set_xlabel("Number of users")
+ax.set_ylabel("Error")
+ax.legend()
+plt.show()
