@@ -14,9 +14,11 @@ It is really recommended to read the paper to understand the code.
 
 ## Dependencies
 * Charm Crypto
+
 Charm Crypto is a Python framework made for prototyping complex cryptosystems, promoting the reuse of components. You can follow this link to install it https://jhuisi.github.io/charm/install_source.html.
 We mainly use it for generating and using Shnorr group.
 * Scipy
+
 Scipy ecosystem gives you a lot of tools for computation, data management, mathematical experimentation. It is included in most Python distributions, follow this link for installation information https://www.scipy.org/install.html. We only import scipy.stat to build the two-sided geometric distribution.
 
 ## Use
