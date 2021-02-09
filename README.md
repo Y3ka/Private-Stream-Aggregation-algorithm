@@ -26,6 +26,7 @@ Run the PSA_charm_scheme after defining the desired parameters:
 * gamma : proportion of uncompromised paraticipants
 * nb_users : number of users
 * eps, d : (eps, d)-distributed-differential-privacy parameters with delta >= eps/3 and 0 < d < 1
+
 (Do not hesitate to look at the code since it is fully commented ! If you have a question about the code you can send an email to lardy@eurecom.fr)
 
 
