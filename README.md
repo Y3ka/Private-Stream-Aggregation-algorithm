@@ -1,12 +1,12 @@
 # Private-Stream-Aggregation-algorithm
 Realised end 2020 for a semester project at EURECOM.
 
-## Presentation:
+## Presentation
 This project aims at implementing the Private Stream Aggregation algorithm proposed by Elaine Shi, T-H. Hubert Chan, Eleanor Rieffel, Richard Chow and Dawn Song (www.elaineshi.com/docs/ndss2011.pdf) using *Charm Crypto*.
 The goal of this scheme is basically to allow N users to engage in statistical operation over their shared data without revealing their individual data. An aggregator, which could be a server, is able to do the sum of all users'data without compromising each individual privacy. Hence, each users and the aggregator used different keys (contrary to homomorphic encryption) and this means that users neither need to trust each other nor the aggregator.
 The scheme provides also distributed differential privacy to protect against indirect violation of privacy (e.g compromised participants ally with the aggregator to infer data from other participants).
 
-## Content:
+## Content
 * PSA_charm_scheme.py: main file with the implementation of the algorithm and the definition of parameters.
 * Pollard_algorithm.py: implementation of Pollard algorithm adapted for Charm Crypto.
 * DD_privacy: generates graph to compare the distributed differential privacy scheme against a naive scheme.
@@ -19,7 +19,7 @@ We mainly use it for generating and using Shnorr group.
 * Scipy
 Scipy ecosystem gives you a lot of tools for computation, data management, mathematical experimentation. It is included in most Python distributions, follow this link for installation information https://www.scipy.org/install.html. We only import scipy.stat to build the two-sided geometric distribution.
 
-## Use:
+## Use
 Run the PSA_charm_scheme after defining the desired parameters:
 * bits : number of bits used for prime numbers
 * delta : limit value of user's data (user's value included in {0,1,...,delta})
