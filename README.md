@@ -3,7 +3,7 @@ Realised end 2020 for a semester project at EURECOM.
 
 ## Presentation
 This project aims at implementing the Private Stream Aggregation algorithm proposed by Elaine Shi, T-H. Hubert Chan, Eleanor Rieffel, Richard Chow and Dawn Song (www.elaineshi.com/docs/ndss2011.pdf) using *Charm Crypto*.
-The goal of this scheme is basically to allow N users to engage in statistical operations over their shared data without revealing their individual data. An aggregator, which could be a server, is able to do the sum of all users'data without compromising each individual privacy. Hence, each users and the aggregator used different keys (contrary to homomorphic encryption) and this means that users neither need to trust each other nor the aggregator.
+The goal of this scheme is basically to allow N users to engage in statistical operations over their shared data without revealing their individual data. An aggregator, which could be a server, is able to do the sum of all users'data without compromising each individual privacy. Hence, each users and the aggregator use different keys (contrary to homomorphic encryption) and this means that users neither need to trust each other nor the aggregator.
 The scheme provides also distributed differential privacy to protect against indirect violation of privacy (e.g compromised participants ally with the aggregator to infer data from other participants).
 
 ## Content
