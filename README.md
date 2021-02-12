@@ -11,7 +11,7 @@ The scheme provides also distributed differential privacy to protect against ind
 * Pollard_algorithm.py: implementation of Pollard algorithm for discrete logarithm computation adapted for Charm Crypto.
 * DD_privacy: generates graph to compare the distributed differential privacy scheme against a naive scheme.
 
-It is really recommended to read the paper to understand the code.
+It is really recommended to read the paper to understand the implementation.
 
 ## Dependencies
 * Charm Crypto
